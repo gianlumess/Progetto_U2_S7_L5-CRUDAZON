@@ -20,6 +20,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const paragraph = document.querySelector("h6");
 
   if (productId) {
+    //se productId esiste allora entreremo nella modalità di modifica con metodo .PUT
+
+    const submitBtn = document.getElementById("submit");
+    submitBtn.innerText = "EDIT";
+    submitBtn.className = "btn btn-outline-primary";
+
     paragraph.innerText = "Modifica prodotto";
     const btnContainer = document.getElementById("button-container");
     const deleteBtn = document.createElement("button");
@@ -52,6 +58,43 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("brand-name").value = product.brand;
         document.getElementById("img-url").value = product.imageUrl;
         document.getElementById("price").value = product.price;
-      });
+
+        alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
+      })
+      .catch((err) => console.log(err));
+  } else {
+    //qui entriamo invece qunado productId non esiste e quindi non bisogna modificare nessun prodotto
+    //verrà quindi uitlizzato il metodo .POST per creare un nuovo prodotto
+    form.onsubmit = (e) => {
+      e.preventDefault();
+      const newProduct = {
+        name: document.getElementById("product-name").value,
+        description: document.getElementById("product-description").value,
+        brand: document.getElementById("brand-name").value,
+        imageUrl: document.getElementById("img-url").value,
+        price: document.getElementById("price").value,
+      };
+
+      fetch(URL, {
+        method: method,
+        body: JSON.stringify(newProduct), //stringhifizzazione per evitare di ottenere un [object,object]
+        headers: {
+          "Content-type": "application/json",
+          Authorization: APIKEY,
+        },
+      })
+        .then((resp) => {
+          console.log(resp);
+          if (resp.ok) {
+            return resp.json();
+          } else {
+            throw new Error("Network response was not ok");
+          }
+        })
+        .then((generatedProduct) => {
+          alert(`Prodotto: ${generatedProduct.name} , ID: ${generatedProduct._id} creato con successo!`);
+        })
+        .catch((err) => console.log(err));
+    };
   }
 });
