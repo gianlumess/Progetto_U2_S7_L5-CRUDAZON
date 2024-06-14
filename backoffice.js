@@ -63,6 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         form.onsubmit = (e) => {
           e.preventDefault();
+          const securityCheck1 = confirm("sicuro di voler MODIFICARE il prodotto?");
 
           const producToModify = {
             name: document.getElementById("product-name").value,
@@ -95,7 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //funzione che al click elimina il prodotto
     deleteBtn.addEventListener("click", () => {
-      const securityCheck = confirm("sicuro di voler cancellare il prodotto?");
+      const securityCheck2 = confirm("sicuro di voler CANCELLARE il prodotto?");
 
       if (securityCheck) {
         fetch(URL, {
