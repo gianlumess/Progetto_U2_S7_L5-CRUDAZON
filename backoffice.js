@@ -43,7 +43,6 @@ window.addEventListener("DOMContentLoaded", () => {
       headers: headers,
     })
       .then((resp) => {
-        confirm;
         console.log(resp);
         if (resp.ok) {
           return resp.json();
@@ -88,6 +87,7 @@ window.addEventListener("DOMContentLoaded", () => {
             })
             .then((productModified) => {
               alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
+              window.location.assign("/");
             })
             .catch((err) => console.log(err));
         };
@@ -96,9 +96,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     //funzione che al click elimina il prodotto
     deleteBtn.addEventListener("click", () => {
-      const securityCheck2 = confirm("sicuro di voler CANCELLARE il prodotto?");
+      const securityCheck2 = confirm("sicuro di voler cancellare il prodotto?");
 
-      if (securityCheck) {
+      if (securityCheck2) {
         fetch(URL, {
           method: "DELETE",
           headers: headers,
@@ -149,6 +149,7 @@ window.addEventListener("DOMContentLoaded", () => {
         })
         .then((generatedProduct) => {
           alert(`Prodotto: ${generatedProduct.name} , ID: ${generatedProduct._id} creato con successo!`);
+          window.location.assign("/");
         })
         .catch((err) => console.log(err));
     };
