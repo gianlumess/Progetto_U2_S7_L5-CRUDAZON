@@ -8,8 +8,8 @@ const headers = {
 };
 
 console.log(productId);
+
 //se l'id sara presente utilizzeremo il metodo PUT per modificare il prodotto, altrimenti utilizzeremo il metodo POST per crearne uno nuvo
-const method = productId ? "PUT" : "POST";
 
 const URL = productId
   ? "https://striveschool-api.herokuapp.com/api/product/" + productId
@@ -37,6 +37,62 @@ window.addEventListener("DOMContentLoaded", () => {
                             </svg>`;
 
     btnContainer.appendChild(deleteBtn);
+    //qui prendo i dati del prodotto tramite id
+    fetch(URL, {
+      method: "GET",
+      headers: headers,
+    })
+      .then((resp) => {
+        confirm;
+        console.log(resp);
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .then((product) => {
+        console.log(product);
+
+        //dopo aver preso i dati li inseriamo nei campi da modificare
+        document.getElementById("product-name").value = product.name;
+        document.getElementById("product-description").value = product.description;
+        document.getElementById("brand-name").value = product.brand;
+        document.getElementById("img-url").value = product.imageUrl;
+        document.getElementById("price").value = product.price;
+
+        form.onsubmit = (e) => {
+          e.preventDefault();
+
+          const producToModify = {
+            name: document.getElementById("product-name").value,
+            description: document.getElementById("product-description").value,
+            brand: document.getElementById("brand-name").value,
+            imageUrl: document.getElementById("img-url").value,
+            price: document.getElementById("price").value,
+          };
+
+          fetch(URL, {
+            method: "PUT",
+            body: JSON.stringify(producToModify),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: APIKEY,
+            },
+          })
+            .then((resp) => {
+              if (resp.ok) {
+                return resp.json();
+              }
+            })
+            .then((productModified) => {
+              alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
+            })
+            .catch((err) => console.log(err));
+        };
+      })
+      .catch((err) => console.log(err));
+
     //funzione che al click elimina il prodotto
     deleteBtn.addEventListener("click", () => {
       const securityCheck = confirm("sicuro di voler cancellare il prodotto?");
@@ -61,34 +117,6 @@ window.addEventListener("DOMContentLoaded", () => {
           .catch((err) => console.log(err));
       }
     });
-
-    fetch(URL, {
-      method: method,
-      headers: headers,
-    })
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        } else {
-          throw new Error("Network response was not ok");
-        }
-      })
-      .then((product) => {
-        console.log(product);
-
-        //dopo aver preso i dati li inseriamo nei campi da modificare
-        document.getElementById("product-name").value = product.name;
-        document.getElementById("product-description").value = product.description;
-        document.getElementById("brand-name").value = product.brand;
-        document.getElementById("img-url").value = product.imageUrl;
-        document.getElementById("price").value = product.price;
-
-        form.onsubmit = (e) => {
-          e.preventDefault();
-          alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
-        };
-      })
-      .catch((err) => console.log(err));
   } else {
     //qui entriamo invece qunado productId non esiste e quindi non bisogna modificare nessun prodotto
     //verrà quindi uitlizzato il metodo .POST per creare un nuovo prodotto
@@ -103,7 +131,7 @@ window.addEventListener("DOMContentLoaded", () => {
       };
 
       fetch(URL, {
-        method: method,
+        method: "POST",
         body: JSON.stringify(newProduct), //stringhifizzazione per evitare di ottenere un [object,object]
         headers: {
           "Content-type": "application/json",

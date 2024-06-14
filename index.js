@@ -36,6 +36,10 @@ window.addEventListener("DOMContentLoaded", () => {
         img.style.objectFit = "cover";
         img.style.cursor = "pointer";
 
+        img.addEventListener("click", () => {
+          window.location.assign("detail.html?productId=" + product._id);
+        });
+
         const cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
 
@@ -62,7 +66,7 @@ window.addEventListener("DOMContentLoaded", () => {
         buttonSection.classList.add("d-flex", "justify-content-between", "align-items-center");
 
         const editBtn = document.createElement("button");
-        editBtn.classList.add("btn", "btn-outline-warning", "btn-sm");
+        editBtn.classList.add("btn", "btn-warning", "btn-sm");
         editBtn.innerText = "EDIT";
 
         editBtn.addEventListener("click", () => {
