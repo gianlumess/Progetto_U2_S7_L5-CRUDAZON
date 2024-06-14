@@ -1,5 +1,5 @@
 const params = new URLSearchParams(window.location.search);
-const pexelId = params.get("productId");
+const productId = params.get("productId");
 
 const APIKEY =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmZmNDdjMjM5YzAwMTUyZjRiNzQiLCJpYXQiOjE3MTgzNTM5MDgsImV4cCI6MTcxOTU2MzUwOH0.YxOTllrumawWZJ4LtdXWOHBZKu9J2pg4-y4aQ09JeiQ";
@@ -9,17 +9,17 @@ const headers = {
 
 console.log(productId);
 //se l'id sara presente utilizzeremo il metodo PUT per modificare il prodotto, altrimenti utilizzeremo il metodo POST per crearne uno nuvo
-const method = id ? "PUT" : "POST";
+const method = productId ? "PUT" : "POST";
 
-const URL = id
-  ? "https://striveschool-api.herokuapp.com/api/product/" + id
+const URL = productId
+  ? "https://striveschool-api.herokuapp.com/api/product/" + productId
   : "https://striveschool-api.herokuapp.com/api/product/";
 
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const paragraph = document.querySelector("h6");
 
-  if (id) {
+  if (productId) {
     paragraph.innerText = "Modifica prodotto";
     const btnContainer = document.getElementById("button-container");
     const deleteBtn = document.createElement("button");
@@ -31,5 +31,27 @@ window.addEventListener("DOMContentLoaded", () => {
                             </svg>`;
 
     btnContainer.appendChild(deleteBtn);
+
+    fetch(URL, {
+      method: method,
+      headers: headers,
+    })
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .then((product) => {
+        console.log(product);
+
+        //dopo aver preso i dati li inseriamo nei campi da modificare
+        document.getElementById("product-name").value = product.name;
+        document.getElementById("product-description").value = product.description;
+        document.getElementById("brand-name").value = product.brand;
+        document.getElementById("img-url").value = product.imageUrl;
+        document.getElementById("price").value = product.price;
+      });
   }
 });

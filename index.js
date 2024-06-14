@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", () => {
         img.style.cursor = "pointer";
 
         img.addEventListener("click", () => {
-          window.location.assign("detail.html?productId=" + product._id);
+          window.location.assign("backoffice.html?productId=" + product._id);
         });
 
         const cardBody = document.createElement("div");
