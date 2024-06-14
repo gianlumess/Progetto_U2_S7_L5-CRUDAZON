@@ -36,10 +36,6 @@ window.addEventListener("DOMContentLoaded", () => {
         img.style.objectFit = "cover";
         img.style.cursor = "pointer";
 
-        img.addEventListener("click", () => {
-          window.location.assign("backoffice.html?productId=" + product._id);
-        });
-
         const cardBody = document.createElement("div");
         cardBody.classList.add("card-body");
 
@@ -69,12 +65,11 @@ window.addEventListener("DOMContentLoaded", () => {
         editBtn.classList.add("btn", "btn-outline-warning", "btn-sm");
         editBtn.innerText = "EDIT";
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("btn", "btn-outline-danger", "btn-sm");
-        deleteBtn.innerText = "DELETE";
+        editBtn.addEventListener("click", () => {
+          window.location.assign("backoffice.html?productId=" + product._id);
+        });
 
         buttonSection.appendChild(editBtn);
-        buttonSection.appendChild(deleteBtn);
 
         ul.appendChild(li1);
         ul.appendChild(li2);

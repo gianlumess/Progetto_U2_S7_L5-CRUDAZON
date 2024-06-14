@@ -59,7 +59,10 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("img-url").value = product.imageUrl;
         document.getElementById("price").value = product.price;
 
-        alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          alert(`Prodotto: ${product.name} , ID: ${product._id} modificato con successo!`);
+        };
       })
       .catch((err) => console.log(err));
   } else {
