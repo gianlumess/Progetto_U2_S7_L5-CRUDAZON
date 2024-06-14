@@ -37,6 +37,30 @@ window.addEventListener("DOMContentLoaded", () => {
                             </svg>`;
 
     btnContainer.appendChild(deleteBtn);
+    //funzione che al click elimina il prodotto
+    deleteBtn.addEventListener("click", () => {
+      const securityCheck = confirm("sicuro di voler cancellare il prodotto?");
+
+      if (securityCheck) {
+        fetch(URL, {
+          method: "DELETE",
+          headers: headers,
+        })
+          .then((resp) => {
+            if (resp.ok) {
+              return resp.json();
+            } else {
+              throw new Error("Network response was not ok");
+            }
+          })
+          .then((deleteProduct) => {
+            alert(`hai eliminato il prodotto: ${deleteProduct.name}, ID: ${deleteProduct._id}`);
+
+            window.location.assign("/");
+          })
+          .catch((err) => console.log(err));
+      }
+    });
 
     fetch(URL, {
       method: method,
