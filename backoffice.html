@@ -15,7 +15,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">CRUDAZON</a>
+          <a class="navbar-brand" href="./index.html">CRUDAZON</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -30,7 +30,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="./backoffice.html">Backoffice</a>
@@ -42,6 +42,7 @@
     </header>
     <div class="container">
       <h1 class="display-4 mt-5 text-primary d-inline-block">BACKOFFICE</h1>
+      <h6 class="d-inline-block ms-2">Inserisci nuovo prodotto</h6>
       <form>
         <div class="mb-3">
           <label for="product-name" class="form-label">Product name</label>
@@ -63,11 +64,9 @@
           <label for="price" class="form-label">Price</label>
           <input required type="number" class="form-control" id="price" />
         </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div id="button-container" class="d-flex justify-content-between">
+          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
     <script
