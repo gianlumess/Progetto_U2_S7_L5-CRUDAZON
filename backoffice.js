@@ -18,13 +18,19 @@ const URL = productId
 window.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const paragraph = document.querySelector("h6");
+  const resetBtn = document.getElementById("reset");
+  const submitBtn = document.getElementById("submit");
+  resetBtn.addEventListener("click", () => {
+    form.reset();
+  });
 
   if (productId) {
     //se productId esiste allora entreremo nella modalità di modifica con metodo .PUT
 
-    const submitBtn = document.getElementById("submit");
     submitBtn.innerText = "EDIT";
     submitBtn.className = "btn btn-outline-primary";
+
+    resetBtn.className = "btn btn-outline-warning";
 
     paragraph.innerText = "Modifica prodotto";
     const btnContainer = document.getElementById("button-container");
@@ -59,8 +65,7 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("brand-name").value = product.brand;
         document.getElementById("img-url").value = product.imageUrl;
         document.getElementById("price").value = product.price;
-
-        form.onsubmit = (e) => {
+        submitBtn.addEventListener("click", (e) => {
           e.preventDefault();
           const securityCheck1 = confirm("sicuro di voler MODIFICARE il prodotto?");
 
@@ -90,7 +95,7 @@ window.addEventListener("DOMContentLoaded", () => {
               window.location.assign("/");
             })
             .catch((err) => console.log(err));
-        };
+        });
       })
       .catch((err) => console.log(err));
 
@@ -121,7 +126,8 @@ window.addEventListener("DOMContentLoaded", () => {
   } else {
     //qui entriamo invece qunado productId non esiste e quindi non bisogna modificare nessun prodotto
     //verrà quindi uitlizzato il metodo .POST per creare un nuovo prodotto
-    form.onsubmit = (e) => {
+
+    submitBtn.addEventListener("click", (e) => {
       e.preventDefault();
       const newProduct = {
         name: document.getElementById("product-name").value,
@@ -152,6 +158,6 @@ window.addEventListener("DOMContentLoaded", () => {
           window.location.assign("/");
         })
         .catch((err) => console.log(err));
-    };
+    });
   }
 });
