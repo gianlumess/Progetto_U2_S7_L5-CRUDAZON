@@ -2,7 +2,8 @@ const params = new URLSearchParams(window.location.search);
 const productId = params.get("productId");
 
 const APIKEY =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmZmNDdjMjM5YzAwMTUyZjRiNzQiLCJpYXQiOjE3MTgzNTM5MDgsImV4cCI6MTcxOTU2MzUwOH0.YxOTllrumawWZJ4LtdXWOHBZKu9J2pg4-y4aQ09JeiQ";
+  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg0ZjY3Yjc1YjczOTAwMTU3ZWFkM2MiLCJpYXQiOjE3MTk5ODk4ODMsImV4cCI6MTcyMTE5OTQ4M30.PoIMMTm_BFqVjWDvU9PWpAD8x6O_LZD5Nd6sg4-6flc";
+
 const headers = {
   Authorization: APIKEY,
 };
@@ -127,7 +128,7 @@ window.addEventListener("DOMContentLoaded", () => {
     //qui entriamo invece qunado productId non esiste e quindi non bisogna modificare nessun prodotto
     //verrà quindi uitlizzato il metodo .POST per creare un nuovo prodotto
 
-    submitBtn.addEventListener("click", (e) => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       const newProduct = {
         name: document.getElementById("product-name").value,
